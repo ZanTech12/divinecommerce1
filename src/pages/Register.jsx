@@ -210,7 +210,7 @@ export default function Register() {
                 <label htmlFor="email">Email Address</label>
                 <div className="auth-input-wrapper">
                   <Icon icon="lucide:mail" width={18} className="auth-input-icon" />
-                  <input id="email" type="email" required value={email} onChange={handleInputChange(setEmail)} placeholder="e.g. user@Sulaitek Communication.com" autoComplete="email" className="auth-input" />
+                  <input id="email" type="email" required value={email} onChange={handleInputChange(setEmail)} placeholder="e.g. user@afoo Communication.com" autoComplete="email" className="auth-input" />
                 </div>
               </div>
 
