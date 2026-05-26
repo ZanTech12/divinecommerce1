@@ -8,7 +8,7 @@ import Point from './Point';
 import './Cart.css';
 
 // ✅ Paystack public key — set in your .env as VITE_PAYSTACK_PUBLIC_KEY
-const PAYSTACK_PUBLIC_KEY = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY || "pk_test_32e4db222573929ba9f18b20d4ccc6da84733b9f";
+const PAYSTACK_PUBLIC_KEY = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY || "sk_test_c0a72e5f02299146ff0c8febd03d6a1c4139df3a";
 
 const getEffectivePrice = (item, isEngineer = false) => {
   const price = Number(item.price) || 0;
@@ -23,9 +23,9 @@ const getEffectivePrice = (item, isEngineer = false) => {
 
 const BANK_ACCOUNTS = [
   {
-    name: "ALL ABOUT COMMUNICATION",
-    accountNumber: "0075702929",
-    bank: "Access Bank",
+    name: "AFOO TECHNOLOGY",
+    accountNumber: "2045148279",
+    bank: "First Bank of Nigeria",
     color: "#00C07F",
     icon: "lucide:smartphone",
   },
@@ -671,7 +671,7 @@ export default function Cart() {
                 <div className="cart-item-details">
                   <div>
                     <Link to={`/product/${productId}`} className="cart-item-name">{item.name}</Link>
-                    <p className="cart-item-sold">Sold by All-About Communication Investment</p>
+                    <p className="cart-item-sold">Sold by AFOO TECHNOLOGY</p>
                   </div>
                   <div className="cart-item-bottom">
                     <div className="cart-qty-control">
