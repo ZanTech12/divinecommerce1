@@ -8,7 +8,7 @@ import Point from './Point';
 import './Cart.css';
 
 // ✅ Paystack public key — set in your .env as VITE_PAYSTACK_PUBLIC_KEY
-const PAYSTACK_PUBLIC_KEY = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY || "pk_test_32e4db222573929ba9f18b20d4ccc6da84733b9f";
+const PAYSTACK_PUBLIC_KEY = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY || "pk_test_3db5b8a8a794eec23b42a1400a60649a6a99e406";
 
 const getEffectivePrice = (item, isEngineer = false) => {
   const price = Number(item.price) || 0;
