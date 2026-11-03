@@ -21,7 +21,7 @@ export default function Register() {
   const navigate = useNavigate();
 
   // ── Dynamic site settings (same API as Home) ──
-  const [siteName, setSiteName] = useState('AFOO TECHNOLOGY');
+  const [siteName, setSiteName] = useState('Divine Vine-Edo');
   const [siteLogo, setSiteLogo] = useState('');
   const [settingsLoaded, setSettingsLoaded] = useState(false);
 

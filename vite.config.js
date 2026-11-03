@@ -7,7 +7,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': {
-        target: 'https://ecommerce-25vb.onrender.com',
+        target: 'https://divinecommerce2.vercel.app',
         changeOrigin: true,
       }
     }

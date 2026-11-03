@@ -6,17 +6,17 @@ import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
 import "./Home.css";
 
-const   DEFAULT_SLIDES = [
-  { bg: "linear-gradient(135deg, #f68b1e 0%, #e8590c 100%)", tag: "MEGA SALE", title: "Up to 70% OFF", sub: "On all electronics & gadgets", price: "Prices from ₦5,000", img: "https://images.unsplash.com/photo-1498049794561-7780e7231661?w=800&q=80" },
-  { bg: "linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)", tag: "TECH WEEK", title: "Phones & Laptops", sub: "Best deals on top brands", price: "Starting from ₦25,000", img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800&q=80" },
-  { bg: "linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%)", tag: "NEW ARRIVALS", title: "Laptops & MacBooks", sub: "Latest models in stock", price: "From ₦85,000", img: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=800&q=80" },
-  { bg: "linear-gradient(135deg, #00b894 0%, #00cec9 100%)", tag: "EXCLUSIVE", title: "Home Appliances", sub: "Official store prices", price: "From ₦15,000", img: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80" },
+const DEFAULT_SLIDES = [
+  { bg: "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)", tag: "SOLAR MEGA SALE", title: "Up to 40% OFF", sub: "On inverters, batteries & panels", price: "Prices from ₦65,000", img: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&q=80" },
+  { bg: "linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%)", tag: "POWER WEEK", title: "Hybrid Inverters", sub: "Beat the blackout — top brands in stock", price: "Starting from ₦250,000", img: "https://images.unsplash.com/photo-1559302504-64aae6ca6b6d?w=800&q=80" },
+  { bg: "linear-gradient(135deg, #059669 0%, #10b981 100%)", tag: "NEW ARRIVALS", title: "Lithium Batteries", sub: "LiFePO4 storage, 10-year design life", price: "From ₦350,000", img: "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=800&q=80" },
+  { bg: "linear-gradient(135deg, #0284c7 0%, #38bdf8 100%)", tag: "COMPLETE KITS", title: "Home Solar Systems", sub: "Panels, inverter & battery bundled", price: "From ₦1,500,000", img: "https://images.unsplash.com/photo-1611365892117-00ac5ef43c90?w=800&q=80" },
 ];
 
 const DEFAULT_SIDE_PROMOS = [
-  { bg: "linear-gradient(135deg, #e9e9f1, #2d3436)", tag: "Official Store", title: "Apple", price: "From ₦250k", img: "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=200&q=80" },
-  { bg: "linear-gradient(135deg, #0984e3, #74b9ff)", tag: "Tech Week", title: "Laptops", price: "From ₦85k", img: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=200&q=80" },
-  { bg: "linear-gradient(135deg, #6c5ce7, #a29bfe)", tag: "Premium Build", title: "MacBooks", price: "From ₦450k", img: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=200&q=80" },
+  { bg: "linear-gradient(135deg, #e9e9f1, #2d3436)", tag: "Official Store", title: "Growatt", price: "From ₦250k", img: "https://images.unsplash.com/photo-1545209463-e2825498edbf?w=200&q=80" },
+  { bg: "linear-gradient(135deg, #0284c7, #38bdf8)", tag: "Power Week", title: "Hybrid Inverters", price: "From ₦250k", img: "https://images.unsplash.com/photo-1559302504-64aae6ca6b6d?w=200&q=80" },
+  { bg: "linear-gradient(135deg, #059669, #34d399)", tag: "Long Life Cells", title: "Lithium Batteries", price: "From ₦350k", img: "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=200&q=80" },
 ];
 
 const DEFAULT_SERVICES = [
@@ -27,53 +27,41 @@ const DEFAULT_SERVICES = [
 ];
 
 const DEFAULT_SEARCHES = [
-  { term: "iPhone 15", price: "From ₦450k" }, { term: "Samsung Galaxy", price: "From ₦120k" },
-  { term: "AirPods", price: "From ₦35k" }, { term: "PS5", price: "From ₦280k" },
-  { term: "Laptop", price: "From ₦85k" }, { term: "MacBook Air", price: "From ₦450k" },
-  { term: "Gaming Laptop", price: "From ₦120k" }, { term: "Bluetooth Speaker", price: "From ₦5k" },
-  { term: "Smart Watch", price: "From ₦8k" }, { term: "Monitor", price: "From ₦45k" },
-  { term: "Power Bank", price: "From ₦3k" }, { term: "USB Cable", price: "From ₦500" },
-  { term: "Gaming Chair", price: "From ₦45k" },
+  { term: "5.5kW Inverter", price: "From ₦450k" }, { term: "Lithium Battery", price: "From ₦350k" },
+  { term: "Solar Panel 450W", price: "From ₦75k" }, { term: "Hybrid Inverter", price: "From ₦550k" },
+  { term: "Tubular Battery", price: "From ₦180k" }, { term: "MPPT Controller", price: "From ₦65k" },
+  { term: "Solar Freezer", price: "From ₦450k" }, { term: "Street Light", price: "From ₦45k" },
+  { term: "Solar Water Pump", price: "From ₦250k" }, { term: "Mounting Kit", price: "From ₦15k" },
+  { term: "AVR Stabilizer", price: "From ₦45k" }, { term: "Changeover Switch", price: "From ₦25k" },
+  { term: "Complete Solar Kit", price: "From ₦1.5M" },
 ];
 
 const DEFAULT_STORES = [
-  { name: "Apple", color: "#555", price: "₦250k – ₦1.2M", initial: "A" },
-  { name: "Samsung", color: "#1428a0", price: "₦45k – ₦800k", initial: "S" },
-  { name: "ASUS", color: "#000000", price: "₦85k – ₦900k", initial: "A" },
-  { name: "MSI", color: "#ff0000", price: "₦120k – ₦1.5M", initial: "M" },
-  { name: "Sony", color: "#000", price: "₦30k – ₦500k", initial: "S" },
-  { name: "LG", color: "#a50034", price: "₦50k – ₦600k", initial: "L" },
-  { name: "HP", color: "#0096d6", price: "₦85k – ₦450k", initial: "H" },
-  { name: "Dell", color: "#007db8", price: "₦90k – ₦550k", initial: "D" },
-  { name: "Lenovo", color: "#e2231a", price: "₦75k – ₦400k", initial: "L" },
-  { name: "Oraimo", color: "#f68b1e", price: "₦2k – ₦45k", initial: "O" },
+  { name: "Growatt", color: "#f47b20", price: "₦250k – ₦1.5M", initial: "G" },
+  { name: "Deye", color: "#14477d", price: "₦350k – ₦2M", initial: "D" },
+  { name: "Felicity", color: "#00a651", price: "₦180k – ₦900k", initial: "F" },
+  { name: "Luminous", color: "#d71920", price: "₦120k – ₦600k", initial: "L" },
+  { name: "Pylontech", color: "#1b3a6b", price: "₦450k – ₦1.8M", initial: "P" },
+  { name: "Must Power", color: "#ea580c", price: "₦150k – ₦800k", initial: "M" },
+  { name: "SRNE", color: "#0d7fc4", price: "₦120k – ₦700k", initial: "S" },
+  { name: "Mercury", color: "#00838f", price: "₦90k – ₦450k", initial: "M" },
+  { name: "Su-Kam", color: "#0057b8", price: "₦100k – ₦500k", initial: "S" },
+  { name: "Eastman", color: "#455a64", price: "₦60k – ₦300k", initial: "E" },
 ];
 
 const SUBCATEGORY_ICON_MAP = {
-  "Smartphones": "lucide:smartphone", "Tablets": "lucide:tablet-smartphone", "Phone Cases": "lucide:shield",
-  "Screen Protectors": "lucide:monitor-smartphone", "Chargers & Cables": "lucide:plug-zap", "Power Banks": "lucide:battery-charging",
-  "Televisions": "lucide:tv", "Audio & Speakers": "lucide:speaker", "Cameras": "lucide:camera",
-  "Wearable Tech": "lucide:watch", "Cables & Adapters": "lucide:cable", "Batteries": "lucide:battery-full",
-  "MacBooks": "lucide:laptop", "Gaming Laptops": "lucide:gamepad-2", "Workstations": "lucide:monitor",
-  "Mini PCs": "lucide:cpu", "Laptop Bags": "lucide:briefcase", "Laptop Stands": "lucide:monitor-up",
-  "Furniture": "lucide:sofa", "Kitchen & Dining": "lucide:utensils-crossed", "Storage & Organization": "lucide:archive",
-  "Office Supplies": "lucide:pen-tool", "Lighting": "lucide:lamp", "Home Decor": "lucide:flower-2",
-  "Kitchen Appliances": "lucide:cooking-pot", "Laundry": "lucide:washing-machine", "Cooling & Heating": "lucide:fan",
-  "Small Appliances": "lucide:blender", "Generators": "lucide:zap", "Air Conditioners": "lucide:snowflake",
-  "Skincare": "lucide:droplets", "Hair Care": "lucide:scissors", "Makeup": "lucide:palette",
-  "Fragrances": "lucide:flask-conical", "Personal Care": "lucide:heart-pulse", "Health Devices": "lucide:activity",
-  "Food Cupboard": "lucide:package", "Beverages": "lucide:cup-soda", "Snacks": "lucide:cookie",
-  "Cooking Essentials": "lucide:flame", "Household Cleaning": "lucide:spray-can", "Baby Food": "lucide:milk",
-  "Laptops": "lucide:laptop", "Desktops": "lucide:monitor", "Monitors": "lucide:monitor",
-  "Networking": "lucide:wifi", "Storage Devices": "lucide:hard-drive", "Accessories": "lucide:mouse",
-  "Diapers & Wipes": "lucide:cloud", "Baby Care": "lucide:baby", "Toys": "lucide:gamepad-2",
-  "Strollers": "lucide:shopping-cart", "Baby Tech": "lucide:baby",
-  "Consoles": "lucide:gamepad-2", "Video Games": "lucide:disc", "Controllers": "lucide:mouse-pointer-2",
-  "Gaming Headsets": "lucide:headphones", "Gaming Chairs": "lucide:armchair", "Gaming Accessories": "lucide:cable",
-  "Fitness Equipment": "lucide:dumbbell", "Football": "lucide:circle-dot", "Basketball": "lucide:circle",
-  "Cycling": "lucide:bike", "Swimming": "lucide:waves", "Outdoor Gear": "lucide:mountain",
-  "Car Parts": "lucide:wrench", "Car Electronics": "lucide:cpu", "Car Care": "lucide:droplets",
-  "Motorcycle Parts": "lucide:bike", "Tools & Equipment": "lucide:hammer", "Automotive Accessories": "lucide:settings",
+  "Hybrid Inverters": "lucide:zap", "Off-Grid Inverters": "lucide:plug-zap", "Grid-Tied Inverters": "lucide:plug",
+  "Pure Sine Inverters": "lucide:activity", "Inverters": "lucide:zap", "Inverter Chargers": "lucide:battery-charging",
+  "Lithium Batteries": "lucide:battery-charging", "LiFePO4 Batteries": "lucide:battery-charging", "Tubular Batteries": "lucide:battery-full",
+  "Gel Batteries": "lucide:battery-medium", "AGM Batteries": "lucide:battery-medium", "Battery Racks & Cabinets": "lucide:archive",
+  "Solar Panels": "lucide:sun", "Monocrystalline Panels": "lucide:sun", "Polycrystalline Panels": "lucide:sun-dim",
+  "Portable Panels": "lucide:sun-medium", "Charge Controllers": "lucide:cpu", "MPPT Controllers": "lucide:gauge",
+  "PWM Controllers": "lucide:sliders-horizontal", "Mounting & Racking": "lucide:wrench", "Mounting Kits": "lucide:hammer",
+  "Solar Cables": "lucide:cable", "MC4 Connectors": "lucide:plug", "DC Breakers & Fuses": "lucide:shield",
+  "Changeover Switches": "lucide:toggle-left", "AVR & Stabilizers": "lucide:activity", "Energy Meters": "lucide:gauge",
+  "Monitoring Devices": "lucide:wifi", "Solar Kits": "lucide:package", "Complete Solar Systems": "lucide:package",
+  "Solar Street Lights": "lucide:lamp", "Solar Water Heaters": "lucide:flame", "Solar Water Pumps": "lucide:droplets",
+  "Solar Freezers": "lucide:snowflake", "Solar Fans": "lucide:fan", "Inverter Accessories": "lucide:settings",
 };
 
 // ═══════ Pure helper functions ═══════
@@ -332,8 +320,8 @@ export default function Home() {
   const [searchParams, setSearchParams] = useSearchParams();
   const activeSearch = searchParams.get("search") || "";
 
-  const companyName = siteSettings?.companyName || "All-About Communication";
-  const companyTagline = siteSettings?.companyTagline || "Your One-Stop Online Mall";
+  const companyName = siteSettings?.companyName || "Divine Vine-Edo Solar";
+  const companyTagline = siteSettings?.companyTagline || "Your One-Stop Solar & Power Store";
   const companyLogo = siteSettings?.logo || "";
   const companyAddress = siteSettings?.address || "";
   const companyPhone = siteSettings?.phone || "";
@@ -567,7 +555,7 @@ export default function Home() {
                 width: "64px",
                 height: "64px",
                 borderRadius: "50%",
-                background: "linear-gradient(135deg, #f68b1e 0%, #e8590c 100%)",
+                background: "linear-gradient(135deg, #16a34a 0%, #047857 100%)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -605,7 +593,7 @@ export default function Home() {
                   width: "100%",
                   padding: "13px 0",
                   borderRadius: "10px",
-                  background: "linear-gradient(135deg, #f68b1e 0%, #e8590c 100%)",
+                  background: "linear-gradient(135deg, #16a34a 0%, #047857 100%)",
                   color: "#fff",
                   fontWeight: 700,
                   fontSize: "0.95rem",
@@ -877,23 +865,23 @@ export default function Home() {
       {/* ═══════ PROMO BANNERS ═══════ */}
       <section className="jm-promo-grid">
         <div className="jm-promo-banner">
-          <img src="https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&q=80" alt="" className="jm-promo-banner__img" />
+          <img src="https://images.unsplash.com/photo-1615840287214-7ff58936c4cf?w=600&q=80" alt="" className="jm-promo-banner__img" />
           <div className="jm-promo-banner__overlay" />
           <div className="jm-promo-banner__content">
-            <span className="jm-promo-banner__tag">Flagship Phones</span>
-            <h3 className="jm-promo-banner__title">Latest iPhones</h3>
-            <p className="jm-promo-banner__sub">Starting from {currency}450,000</p>
-            <span className="jm-promo-banner__cta">SHOP IPHONES</span>
+            <span className="jm-promo-banner__tag">Complete Solar Kits</span>
+            <h3 className="jm-promo-banner__title">5kW Home Systems</h3>
+            <p className="jm-promo-banner__sub">Starting from {currency}1,500,000</p>
+            <span className="jm-promo-banner__cta">SHOP SOLAR KITS</span>
           </div>
         </div>
         <div className="jm-promo-banner">
-          <img src="https://images.unsplash.com/photo-1605236453806-6ff36851218e?w=600&q=80" alt="" className="jm-promo-banner__img" />
+          <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&q=80" alt="" className="jm-promo-banner__img" />
           <div className="jm-promo-banner__overlay" />
           <div className="jm-promo-banner__content">
-            <span className="jm-promo-banner__tag">Android Deals</span>
-            <h3 className="jm-promo-banner__title">Samsung & More</h3>
-            <p className="jm-promo-banner__sub">Up to 30% off — {currency}120,000 onwards</p>
-            <span className="jm-promo-banner__cta jm-promo-banner__cta--white">UP TO 30% OFF</span>
+            <span className="jm-promo-banner__tag">Lithium Deals</span>
+            <h3 className="jm-promo-banner__title">LiFePO4 Batteries</h3>
+            <p className="jm-promo-banner__sub">Up to 25% off — {currency}350,000 onwards</p>
+            <span className="jm-promo-banner__cta jm-promo-banner__cta--white">UP TO 25% OFF</span>
           </div>
         </div>
       </section>
@@ -1002,7 +990,7 @@ export default function Home() {
         <div className="jm-trust-grid">
           {[
             { icon: "lucide:truck", title: "Free Delivery", desc: `On orders over ${currency}${freeDeliveryThreshold.toLocaleString()}` },
-            { icon: "lucide:shield-check", title: "Genuine Products", desc: "100% authentic items" },
+            { icon: "lucide:shield-check", title: "Genuine Products", desc: "Certified solar brands" },
             { icon: "lucide:refresh-cw", title: "Easy Returns", desc: `${returnDays}-day return policy` },
             { icon: "lucide:lock", title: "Secure Payment", desc: "Fully protected data" },
           ].map((item) => (
@@ -1271,7 +1259,7 @@ export default function Home() {
         }
 
         .jm-cat-select-wrap:focus-within .jm-cat-select__icon {
-          color: #f68b1e;
+          color: #16a34a;
         }
 
         .jm-cat-select {
@@ -1299,12 +1287,12 @@ export default function Home() {
         }
 
         .jm-cat-select:focus {
-          border-color: #f68b1e;
-          box-shadow: 0 0 0 3px rgba(246, 139, 30, 0.15);
+          border-color: #16a34a;
+          box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15);
         }
 
         .jm-cat-select:active {
-          border-color: #e07b0f;
+          border-color: #15803d;
         }
 
         .jm-cat-select__arrow {
@@ -1318,7 +1306,7 @@ export default function Home() {
         }
 
         .jm-cat-select-wrap:focus-within .jm-cat-select__arrow {
-          color: #f68b1e;
+          color: #16a34a;
           transform: rotate(180deg);
         }
 
@@ -1371,7 +1359,7 @@ export default function Home() {
         }
 
         .jm-home-cat-select-wrap:focus-within .jm-home-cat-select__icon {
-          color: #f68b1e;
+          color: #16a34a;
         }
 
         .jm-home-cat-select {
@@ -1399,12 +1387,12 @@ export default function Home() {
         }
 
         .jm-home-cat-select:focus {
-          border-color: #f68b1e;
-          box-shadow: 0 0 0 3px rgba(246, 139, 30, 0.15);
+          border-color: #16a34a;
+          box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15);
         }
 
         .jm-home-cat-select:active {
-          border-color: #e07b0f;
+          border-color: #15803d;
         }
 
         .jm-home-cat-select__arrow {
@@ -1418,7 +1406,7 @@ export default function Home() {
         }
 
         .jm-home-cat-select-wrap:focus-within .jm-home-cat-select__arrow {
-          color: #f68b1e;
+          color: #16a34a;
           transform: rotate(180deg);
         }
 

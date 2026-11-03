@@ -23,7 +23,7 @@ const getEffectivePrice = (item, isEngineer = false) => {
 
 const BANK_ACCOUNTS = [
   {
-    name: "AFOO TECHNOLOGY",
+    name: "Divine Vine-Edo",
     accountNumber: "2045148279",
     bank: "First Bank of Nigeria",
     color: "#00C07F",
@@ -671,7 +671,7 @@ export default function Cart() {
                 <div className="cart-item-details">
                   <div>
                     <Link to={`/product/${productId}`} className="cart-item-name">{item.name}</Link>
-                    <p className="cart-item-sold">Sold by AFOO TECHNOLOGY</p>
+                    <p className="cart-item-sold">Sold by Divine Vine-Edo</p>
                   </div>
                   <div className="cart-item-bottom">
                     <div className="cart-qty-control">

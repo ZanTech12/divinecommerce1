@@ -28,14 +28,14 @@ import './App.css';
 function App() {
   const [siteSettings, setSiteSettings] = useState(null);
 
-  const companyName = siteSettings?.companyName || "AFOO TECHNOLOGY";
+  const companyName = siteSettings?.companyName || "Divine Vine-Edo";
   const companyLogo = siteSettings?.logo || "";
   const companyDesc = siteSettings?.aboutUs || "Your premium online shopping destination in Nigeria. Quality products, fast delivery, and the best prices guaranteed.";
   const footerText = siteSettings?.footerText || `© ${new Date().getFullYear()} ${companyName}. All rights reserved.`;
   
   const address = siteSettings?.address || "23, Marina Street, Lagos Island, Lagos, Nigeria";
   const phone = siteSettings?.phone || "+234 800 MALL HUB";
-  const email = siteSettings?.email || "support@AFOO TECHNOLOGY.com";
+  const email = siteSettings?.email || "support@Divine Vine-Edo.com";
   const supportHours = siteSettings?.supportHours || "Mon - Sat: 8AM - 8PM";
   
   const appStoreLink = siteSettings?.appStoreLink || "#";

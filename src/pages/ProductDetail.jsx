@@ -65,7 +65,7 @@ export default function ProductDetail() {
   }, []);
 
   // ✅ Destructure settings with fallback defaults
-  const companyName = siteSettings?.companyName || "AFOO TECHNOLOGY";
+  const companyName = siteSettings?.companyName || "Divine Vine-Edo";
   const currency = siteSettings?.currency || "₦";
   const freeDeliveryThreshold = siteSettings?.freeDeliveryThreshold || 15000;
   const returnDays = siteSettings?.returnDays || 30;
