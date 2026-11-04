@@ -61,6 +61,7 @@ export default function Cart() {
 
   // ✅ Paystack state
   const [paystackInit, setPaystackInit] = useState(false);
+  const [monnifyInit, setMonnifyInit] = useState(false);
 
   // ✅ Delivery settings from SiteSettings
   const [deliverySettings, setDeliverySettings] = useState({
@@ -283,6 +284,7 @@ export default function Cart() {
     coinDiscount: coinDiscount,
     amountPaid: amountToPay,
     paymentMethod,
+    customerEmail: customerEmail || undefined,
     bankTransferReference: paymentMethod === "bank_transfer" ? transactionRef : undefined,
     paystackReference: paymentMethod === "paystack" ? transactionRef : undefined,
     shippingAddress: shippingInfo,
@@ -403,6 +405,84 @@ export default function Cart() {
       setError("Failed to initialize Paystack payment. Please try another method.");
       setPlacing(false);
       setPaystackInit(false);
+    }
+  };
+
+  // ✅ Monnify payment handler
+  // Create a pending order first, then initialize Monnify checkout.
+  const handleMonnifyPayment = async () => {
+    if (placing) return;
+
+    if (!user) {
+      setError("Please log in before making a Monnify payment.");
+      return;
+    }
+
+    if (!validateShipping()) {
+      setShowMobileForm(true);
+      return;
+    }
+
+    if (amountToPay <= 0) {
+      setError("Amount must be greater than zero for Monnify payment.");
+      return;
+    }
+
+    if (!customerEmail) {
+      setError("Your account must have an email address for Monnify payment.");
+      return;
+    }
+
+    setPlacing(true);
+    setMonnifyInit(true);
+    setError("");
+
+    let createdOrderId = null;
+
+    try {
+      const orderData = buildOrderPayload("monnify", null);
+      const orderResponse = await api.post("/orders", orderData);
+      const order = orderResponse.data?.order;
+
+      if (!order?._id) {
+        throw new Error(
+          orderResponse.data?.message ||
+          "Order was not created successfully. Please try again."
+        );
+      }
+
+      createdOrderId = order._id;
+
+      const paymentResponse = await api.post(
+        "/payments/monnify/initialize",
+        { orderId: createdOrderId }
+      );
+
+      const checkoutUrl = paymentResponse.data?.checkoutUrl;
+
+      if (!paymentResponse.data?.success || !checkoutUrl) {
+        throw new Error(
+          paymentResponse.data?.message ||
+          "Unable to initialize Monnify payment."
+        );
+      }
+
+      // Keep the pending order. The return page verifies payment before clearing cart.
+      window.location.assign(checkoutUrl);
+    } catch (err) {
+      console.error("Monnify payment error:", err);
+      const message =
+        err.response?.data?.message ||
+        err.message ||
+        "Unable to start Monnify payment.";
+
+      setError(
+        createdOrderId
+          ? `${message} Your order reference is ${createdOrderId}. Please contact support if necessary.`
+          : message
+      );
+      setPlacing(false);
+      setMonnifyInit(false);
     }
   };
 
@@ -1000,6 +1080,37 @@ export default function Cart() {
                   </div>
                 )}
 
+                {/* ✅ Monnify payment option */}
+                <button
+                  onClick={handleMonnifyPayment}
+                  disabled={placing || isSyncing || amountToPay <= 0 || !user || !customerEmail}
+                  style={{
+                    width: '100%',
+                    padding: '12px',
+                    marginTop: '10px',
+                    borderRadius: '10px',
+                    border: 'none',
+                    background: placing || isSyncing
+                      ? '#9ca3af'
+                      : 'linear-gradient(135deg, #0756a5, #063b78)',
+                    color: '#fff',
+                    fontWeight: 700,
+                    fontSize: '14px',
+                    cursor: placing || isSyncing ? 'not-allowed' : 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '8px',
+                    opacity: placing || isSyncing ? 0.65 : 1,
+                  }}
+                >
+                  {monnifyInit ? (
+                    <><Icon icon="lucide:loader-2" width={16} style={{ animation: 'spin 1s linear infinite' }} /> Connecting to Monnify...</>
+                  ) : (
+                    <><Icon icon="lucide:shield-check" width={16} /> Pay ₦{amountToPay.toLocaleString()} with Monnify</>
+                  )}
+                </button>
+
                 <div className="cart-or-divider">OR</div>
 
                 {/* ✅ Bank Transfer */}
@@ -1117,6 +1228,32 @@ export default function Cart() {
                     <>₦{amountToPay.toLocaleString()}</>
                   )}
                 </button>
+                {/* ✅ Mobile Monnify button */}
+                <button
+                  onClick={handleMonnifyPayment}
+                  disabled={placing || isSyncing || amountToPay <= 0 || !user || !customerEmail}
+                  style={{
+                    padding: '10px',
+                    borderRadius: '8px',
+                    border: 'none',
+                    background: placing || isSyncing ? '#9ca3af' : '#0756a5',
+                    color: '#fff',
+                    cursor: placing || isSyncing ? 'not-allowed' : 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    opacity: placing || isSyncing ? 0.6 : 1,
+                  }}
+                  title="Pay with Monnify"
+                  aria-label="Pay with Monnify"
+                >
+                  {monnifyInit ? (
+                    <Icon icon="lucide:loader-2" width={18} style={{ animation: 'spin 1s linear infinite' }} />
+                  ) : (
+                    <Icon icon="lucide:shield-check" width={18} />
+                  )}
+                </button>
+
                 {/* ✅ Mobile Bank Transfer button */}
                 <button
                   onClick={handleBankTransfer}
