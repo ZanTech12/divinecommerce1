@@ -1,13 +1,21 @@
+
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000/api",
+  baseURL:
+    import.meta.env.VITE_API_URL ||
+    (import.meta.env.PROD
+      ? "https://divinecommerce2.vercel.app/api"
+      : "http://localhost:5000/api"),
+
   timeout: 60000,
+
   headers: {
     "Content-Type": "application/json",
   },
 });
 
+// Attach authentication token
 api.interceptors.request.use(
   (config) => {
     let token =
@@ -36,6 +44,7 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
+// Handle API responses
 api.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -45,6 +54,11 @@ api.interceptors.response.use(
         fullURL: error.config?.baseURL + error.config?.url,
         response: error.response?.data,
       });
+
+      localStorage.removeItem("token");
+      localStorage.removeItem("authToken");
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("userInfo");
     }
 
     return Promise.reject(error);
