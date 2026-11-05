@@ -42,7 +42,7 @@ export default function Login() {
   const isRegistrationVerification = Boolean(initialEmail);
 
   // Site settings
-  const [siteName, setSiteName] = useState('Divine SolarHub');
+  const [siteName, setSiteName] = useState('Divine Solar Hub');
   const [siteLogo, setSiteLogo] = useState('');
   const [settingsLoaded, setSettingsLoaded] = useState(false);
 
@@ -123,15 +123,27 @@ export default function Login() {
     } catch (err) {
       console.error('Login error:', err.response?.data || err);
 
-      if (err.response?.status === 403) {
-        // Unverified customer: display OTP screen
+      const responseData = err.response?.data;
+
+      if (
+        err.response?.status === 403 &&
+        (
+          responseData?.requiresVerification ||
+          responseData?.success === false
+        )
+      ) {
+        // Unverified customer: display OTP screen.
         setStep('otp');
         setOtp(['', '', '', '', '', '']);
         setResendTimer(0);
         setError('');
+        setSuccess(
+          responseData?.message ||
+          'Your account requires verification. Enter the OTP sent to your registered contact channels.'
+        );
       } else {
         setError(
-          err.response?.data?.message ||
+          responseData?.message ||
           'Invalid email or password. Please try again.'
         );
       }
@@ -159,7 +171,6 @@ export default function Login() {
     setIsVerifying(true);
 
     try {
-      // Verify the email address
       const { data: verificationData } = await api.post(
         '/auth/verify-otp',
         {
@@ -185,10 +196,9 @@ export default function Login() {
         setResendTimer(0);
 
         setSuccess(
-          'Your email has been verified successfully! Please log in to continue.'
+          'Your account has been verified successfully! Please log in to continue.'
         );
 
-        // Clear registration state after successful verification
         navigate('/login', {
           replace: true,
           state: {},
@@ -255,7 +265,7 @@ export default function Login() {
       inputRefs.current[0]?.focus();
 
       setSuccess(
-        'A new verification code has been sent to your email.'
+        'A new verification code has been sent through the available channels (email and WhatsApp).'
       );
 
     } catch (err) {
@@ -396,18 +406,27 @@ export default function Login() {
 
                 <div className="auth-otp-icon-wrap">
                   <Icon
-                    icon="lucide:shield-alert"
+                    icon="lucide:shield-check"
                     width={28}
-                    color="#d97706"
+                    color="#087b45"
                   />
                 </div>
 
-                <h2>Verify Your Email</h2>
+                <h2>Verify Your Account</h2>
 
                 <p className="auth-otp-subtitle">
-                  We sent a verification code to{' '}
-                  <strong>{email}</strong>.
-                  Enter the six-digit code below.
+                  We sent a six-digit verification code to your
+                  registered email address and WhatsApp number
+                  where available.
+                  Enter the code below to verify your account.
+                </p>
+
+                <p className="auth-otp-subtitle">
+                  <strong>{email}</strong>
+                </p>
+
+                <p className="auth-otp-subtitle">
+                  Your verification code expires in 10 minutes.
                 </p>
 
               </div>
@@ -454,7 +473,7 @@ export default function Login() {
                       type="text"
                       inputMode="numeric"
                       maxLength={1}
-                      autoComplete="one-time-code"
+                      autoComplete={index === 0 ? 'one-time-code' : 'off'}
                       value={digit}
                       ref={(element) => {
                         inputRefs.current[index] = element;
@@ -469,6 +488,7 @@ export default function Login() {
                         event.target.select()
                       }
                       className="auth-input auth-otp-input"
+                      aria-label={`Verification digit ${index + 1}`}
                     />
                   ))}
 
@@ -491,7 +511,7 @@ export default function Login() {
                       Verifying...
                     </>
                   ) : (
-                    'VERIFY EMAIL'
+                    'VERIFY ACCOUNT'
                   )}
                 </button>
 
