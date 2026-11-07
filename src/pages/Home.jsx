@@ -5,7 +5,6 @@ import api from "../api/axios";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
 import "./Home.css";
-import divineVineLogo from "../assets/Divine Vine edo logo.png"; // bundled brand logo (remove its background with remove_logo_bg.py)
 
 const DEFAULT_SLIDES = [
   { bg: "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)", tag: "SOLAR MEGA SALE", title: "Up to 40% OFF", sub: "On inverters, batteries & panels", price: "Prices from ₦65,000", img: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&q=80" },
@@ -323,10 +322,7 @@ export default function Home() {
 
   const companyName = siteSettings?.companyName || "Divine Vine-Edo Solar";
   const companyTagline = siteSettings?.companyTagline || "Your One-Stop Solar & Power Store";
-  // Admin-set logo (Site Settings) wins; bundled Divine Vine Edo logo is the default.
-  // To ALWAYS use the bundled file instead, change this line to:
-  // const companyLogo = divineVineLogo;
-  const companyLogo = siteSettings?.logo || divineVineLogo;
+  const companyLogo = siteSettings?.logo || "";
   const companyAddress = siteSettings?.address || "";
   const companyPhone = siteSettings?.phone || "";
   const companyPhone2 = siteSettings?.phone2 || "";
@@ -559,20 +555,14 @@ export default function Home() {
                 width: "64px",
                 height: "64px",
                 borderRadius: "50%",
-                background: companyLogo ? "#ffffff" : "linear-gradient(135deg, #16a34a 0%, #047857 100%)",
-                border: companyLogo ? "2px solid #16a34a" : "2px solid transparent",
+                background: "linear-gradient(135deg, #16a34a 0%, #047857 100%)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 margin: "0 auto 20px",
-                overflow: "hidden",
               }}
             >
-              {companyLogo ? (
-                <img src={companyLogo} alt={companyName} style={{ width: "48px", height: "48px", objectFit: "contain" }} />
-              ) : (
-                <Icon icon="lucide:user-plus" width={28} style={{ color: "#fff" }} />
-              )}
+              <Icon icon="lucide:user-plus" width={28} style={{ color: "#fff" }} />
             </div>
             <h3
               style={{
@@ -1055,7 +1045,7 @@ export default function Home() {
         <div className="jm-footer__grid">
           <div className="jm-footer__col">
             <div className="jm-footer__brand">
-              {companyLogo ? <img src={companyLogo} alt={companyName} className="jm-footer__logo" style={{ width: "120px", height: "auto", maxWidth: "150px", objectFit: "contain" }} /> : <h3 className="jm-footer__brand-name">{companyName}</h3>}
+              {companyLogo ? <img src={companyLogo} alt={companyName} className="jm-footer__logo" style={{ width: "120px", height: "auto", maxWidth: "150px" }} /> : <h3 className="jm-footer__brand-name">{companyName}</h3>}
               <p className="jm-footer__tagline">{companyTagline}</p>
             </div>
             {aboutUs && <p className="jm-footer__about">{aboutUs}</p>}
