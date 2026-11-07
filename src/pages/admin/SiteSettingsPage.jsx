@@ -14,6 +14,7 @@ export default function SiteSettingsPage({ initialSettings }) {
   const [form, setForm] = useState({
     companyName: initialSettings?.companyName || "",
     companyTagline: initialSettings?.companyTagline || "",
+    logo: initialSettings?.logo || "",
     address: initialSettings?.address || "",
     phone: initialSettings?.phone || "",
     phone2: initialSettings?.phone2 || "",
@@ -25,8 +26,8 @@ export default function SiteSettingsPage({ initialSettings }) {
     tiktok: initialSettings?.tiktok || "",
     youtube: initialSettings?.youtube || "",
     currency: initialSettings?.currency || "₦",
-    freeDeliveryThreshold: initialSettings?.freeDeliveryThreshold ?? 15000,
-    returnDays: initialSettings?.returnDays ?? 30,
+    freeDeliveryThreshold: initialSettings?.freeDeliveryThreshold || 15000,
+    returnDays: initialSettings?.returnDays || 30,
     supportHours: initialSettings?.supportHours || "24/7",
     footerText: initialSettings?.footerText || "",
     aboutUs: initialSettings?.aboutUs || "",
@@ -47,7 +48,6 @@ export default function SiteSettingsPage({ initialSettings }) {
       await api.put("/site-settings", form);
       showMessage("success", "Settings saved successfully");
     } catch (error) {
-      console.error("Save site settings error:", error);
       showMessage("error", "Failed to save settings");
     } finally {
       setSaving(false);
@@ -136,8 +136,11 @@ export default function SiteSettingsPage({ initialSettings }) {
                       </label>
                       <input
                         value={form.companyName}
-                        onChange={(e) =>
-                          setForm({ ...form, companyName: e.target.value })
+                        onChange={e =>
+                          setForm({
+                            ...form,
+                            companyName: e.target.value
+                          })
                         }
                         className="settings-field__input"
                       />
@@ -149,31 +152,48 @@ export default function SiteSettingsPage({ initialSettings }) {
                       </label>
                       <input
                         value={form.companyTagline}
-                        onChange={(e) =>
-                          setForm({ ...form, companyTagline: e.target.value })
+                        onChange={e =>
+                          setForm({
+                            ...form,
+                            companyTagline: e.target.value
+                          })
                         }
                         className="settings-field__input"
                       />
                     </div>
 
-                    {/* Permanent Local Company Logo */}
+                    {/* Permanent Company Logo */}
                     <div className="settings-field settings-field--full">
                       <label className="settings-field__label">
                         Permanent Company Logo
                       </label>
 
-                      <div className="settings-logo-preview">
-                        <img
-                          src={companyLogo}
-                          alt="Divine Vine-Edo Company Logo"
-                          className="settings-logo-preview__img"
-                        />
-                      </div>
+                      <img
+                        src={companyLogo}
+                        alt="Divine Vine-Edo Company Logo"
+                        className="settings-logo-preview__img"
+                      />
 
                       <small className="settings-field__hint">
-                        This is the permanent company logo bundled with the
-                        application. It cannot be changed from Site Settings.
+                        Permanent logo loaded directly from application assets.
                       </small>
+                    </div>
+
+                    {/* Existing Logo URL Logic Preserved */}
+                    <div className="settings-field settings-field--full">
+                      <label className="settings-field__label">
+                        Logo URL
+                      </label>
+                      <input
+                        value={form.logo}
+                        onChange={e =>
+                          setForm({
+                            ...form,
+                            logo: e.target.value
+                          })
+                        }
+                        className="settings-field__input"
+                      />
                     </div>
 
                     <div className="settings-field settings-field--full">
@@ -182,8 +202,11 @@ export default function SiteSettingsPage({ initialSettings }) {
                       </label>
                       <textarea
                         value={form.address}
-                        onChange={(e) =>
-                          setForm({ ...form, address: e.target.value })
+                        onChange={e =>
+                          setForm({
+                            ...form,
+                            address: e.target.value
+                          })
                         }
                         className="settings-field__textarea"
                       />
@@ -195,8 +218,11 @@ export default function SiteSettingsPage({ initialSettings }) {
                       </label>
                       <input
                         value={form.phone}
-                        onChange={(e) =>
-                          setForm({ ...form, phone: e.target.value })
+                        onChange={e =>
+                          setForm({
+                            ...form,
+                            phone: e.target.value
+                          })
                         }
                         className="settings-field__input"
                         placeholder="+234..."
@@ -209,8 +235,11 @@ export default function SiteSettingsPage({ initialSettings }) {
                       </label>
                       <input
                         value={form.phone2}
-                        onChange={(e) =>
-                          setForm({ ...form, phone2: e.target.value })
+                        onChange={e =>
+                          setForm({
+                            ...form,
+                            phone2: e.target.value
+                          })
                         }
                         className="settings-field__input"
                       />
@@ -223,8 +252,11 @@ export default function SiteSettingsPage({ initialSettings }) {
                       <input
                         type="email"
                         value={form.email}
-                        onChange={(e) =>
-                          setForm({ ...form, email: e.target.value })
+                        onChange={e =>
+                          setForm({
+                            ...form,
+                            email: e.target.value
+                          })
                         }
                         className="settings-field__input"
                       />
@@ -236,8 +268,11 @@ export default function SiteSettingsPage({ initialSettings }) {
                       </label>
                       <input
                         value={form.whatsapp}
-                        onChange={(e) =>
-                          setForm({ ...form, whatsapp: e.target.value })
+                        onChange={e =>
+                          setForm({
+                            ...form,
+                            whatsapp: e.target.value
+                          })
                         }
                         className="settings-field__input"
                       />
@@ -272,33 +307,33 @@ export default function SiteSettingsPage({ initialSettings }) {
                         key: "facebook",
                         label: "Facebook",
                         icon: "lucide:facebook",
-                        colorClass: "settings-social-icon--facebook",
+                        colorClass: "settings-social-icon--facebook"
                       },
                       {
                         key: "instagram",
                         label: "Instagram",
                         icon: "lucide:instagram",
-                        colorClass: "settings-social-icon--instagram",
+                        colorClass: "settings-social-icon--instagram"
                       },
                       {
                         key: "twitter",
                         label: "Twitter / X",
                         icon: "lucide:twitter",
-                        colorClass: "settings-social-icon--twitter",
+                        colorClass: "settings-social-icon--twitter"
                       },
                       {
                         key: "tiktok",
                         label: "TikTok",
                         icon: "lucide:music",
-                        colorClass: "settings-social-icon--tiktok",
+                        colorClass: "settings-social-icon--tiktok"
                       },
                       {
                         key: "youtube",
                         label: "YouTube",
                         icon: "lucide:youtube",
-                        colorClass: "settings-social-icon--youtube",
+                        colorClass: "settings-social-icon--youtube"
                       },
-                    ].map((social) => (
+                    ].map(social => (
                       <div key={social.key} className="settings-field">
                         <label className="settings-field__label">
                           <Icon
@@ -308,13 +343,12 @@ export default function SiteSettingsPage({ initialSettings }) {
                           />
                           {social.label}
                         </label>
-
                         <input
                           value={form[social.key]}
-                          onChange={(e) =>
+                          onChange={e =>
                             setForm({
                               ...form,
-                              [social.key]: e.target.value,
+                              [social.key]: e.target.value
                             })
                           }
                           className="settings-field__input"
@@ -353,8 +387,11 @@ export default function SiteSettingsPage({ initialSettings }) {
                       </label>
                       <input
                         value={form.currency}
-                        onChange={(e) =>
-                          setForm({ ...form, currency: e.target.value })
+                        onChange={e =>
+                          setForm({
+                            ...form,
+                            currency: e.target.value
+                          })
                         }
                         className="settings-field__input"
                       />
@@ -367,10 +404,10 @@ export default function SiteSettingsPage({ initialSettings }) {
                       <input
                         type="number"
                         value={form.freeDeliveryThreshold}
-                        onChange={(e) =>
+                        onChange={e =>
                           setForm({
                             ...form,
-                            freeDeliveryThreshold: Number(e.target.value),
+                            freeDeliveryThreshold: Number(e.target.value)
                           })
                         }
                         className="settings-field__input"
@@ -384,10 +421,10 @@ export default function SiteSettingsPage({ initialSettings }) {
                       <input
                         type="number"
                         value={form.returnDays}
-                        onChange={(e) =>
+                        onChange={e =>
                           setForm({
                             ...form,
-                            returnDays: Number(e.target.value),
+                            returnDays: Number(e.target.value)
                           })
                         }
                         className="settings-field__input"
@@ -400,8 +437,11 @@ export default function SiteSettingsPage({ initialSettings }) {
                       </label>
                       <input
                         value={form.supportHours}
-                        onChange={(e) =>
-                          setForm({ ...form, supportHours: e.target.value })
+                        onChange={e =>
+                          setForm({
+                            ...form,
+                            supportHours: e.target.value
+                          })
                         }
                         className="settings-field__input"
                       />
@@ -413,8 +453,11 @@ export default function SiteSettingsPage({ initialSettings }) {
                       </label>
                       <input
                         value={form.footerText}
-                        onChange={(e) =>
-                          setForm({ ...form, footerText: e.target.value })
+                        onChange={e =>
+                          setForm({
+                            ...form,
+                            footerText: e.target.value
+                          })
                         }
                         className="settings-field__input"
                       />
@@ -457,8 +500,11 @@ export default function SiteSettingsPage({ initialSettings }) {
                       </label>
                       <input
                         value={form.appStoreLink}
-                        onChange={(e) =>
-                          setForm({ ...form, appStoreLink: e.target.value })
+                        onChange={e =>
+                          setForm({
+                            ...form,
+                            appStoreLink: e.target.value
+                          })
                         }
                         className="settings-field__input"
                       />
@@ -476,8 +522,11 @@ export default function SiteSettingsPage({ initialSettings }) {
                       </label>
                       <input
                         value={form.googlePlayLink}
-                        onChange={(e) =>
-                          setForm({ ...form, googlePlayLink: e.target.value })
+                        onChange={e =>
+                          setForm({
+                            ...form,
+                            googlePlayLink: e.target.value
+                          })
                         }
                         className="settings-field__input"
                       />
@@ -509,8 +558,11 @@ export default function SiteSettingsPage({ initialSettings }) {
                   <div className="settings-field">
                     <textarea
                       value={form.aboutUs}
-                      onChange={(e) =>
-                        setForm({ ...form, aboutUs: e.target.value })
+                      onChange={e =>
+                        setForm({
+                          ...form,
+                          aboutUs: e.target.value
+                        })
                       }
                       className="settings-field__textarea settings-field__textarea--tall"
                       placeholder="About your company..."
@@ -540,7 +592,7 @@ export default function SiteSettingsPage({ initialSettings }) {
                     className="settings-save-btn__icon"
                   />
                 )}
-                {saving ? "Saving..." : "Save Settings"}
+                Save Settings
               </button>
             </div>
 
